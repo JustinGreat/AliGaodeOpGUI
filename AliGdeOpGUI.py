@@ -95,10 +95,12 @@ class Frame(wx.Frame):
         f_p.close()
         self.txt_output.SetLabel("Get Data Success!")
     def OnClickSnd(self,event): 
-        if 0!=os.system("python ProcessPassWorklist.py") and 0!= os.system("python ProcessUnprocessWorklist.py"):
-            self.txt_output.SetLabel("Send Data Error!")
+        if self.txt_input.GetValue().strip('\n').strip('\t')=="":
+            self.txt_output.SetLabel("Please input and get first.")
+        elif 0!=os.system("python ProcessPassWorklist.py") or 0!= os.system("python ProcessUnprocessWorklist.py"):
+            self.txt_output.SetLabel("Send Data Failed!")
         else:
-            self.txt_output.SetLabel("Send Data Success!")    
+            self.txt_output.SetLabel("Send Data Succeed!")    
     def OnClickGtsd(self,event):
         self.OnClickGet(event)
         self.OnClickSnd(event)
